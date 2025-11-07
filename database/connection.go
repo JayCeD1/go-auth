@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 func Connect() {
 	dsn := "host=localhost user=gorm password=addidas1 dbname=gormdb port=5432 sslmode=disable"
 	conn, er := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -14,6 +16,8 @@ func Connect() {
 	if er != nil {
 		panic("could not connect to database")
 	}
+
+	DB = conn
 
 	if err := conn.AutoMigrate(&models.User{}); err != nil {
 		panic("could not migrate database")
