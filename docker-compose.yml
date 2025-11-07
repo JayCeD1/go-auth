@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:17
+    container_name: postgres-gormdb
+    restart: 'no'
+    environment:
+      POSTGRES_DB: gormdb
+      POSTGRES_USER: gorm
+      POSTGRES_PASSWORD: addidas1
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
