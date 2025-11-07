@@ -78,5 +78,16 @@ func Login(c *fiber.Ctx) error {
 			"message": "Could not log in",
 		})
 	}
-	return c.JSON(token)
+
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    token,
+		Expires:  time.Now().Add(24 * time.Hour),
+		HTTPOnly: true,
+	}
+	c.Cookie(&cookie)
+
+	return c.JSON(fiber.Map{
+		"message": "Logged in",
+	})
 }
